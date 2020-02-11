@@ -19,14 +19,15 @@
               <Leipzig v-bind:gloss="gloss | removeEmptyGloss" />
             </v-col>
           </v-row>
+
         </v-container>
 
         <v-bottom-navigation height=38 app class="grey lighten-3 mt-1">
           <span class='mx-1 pa-0'>
-            <v-select :items="docs" label="Document" height=30 outlined dense></v-select>
+            <v-select :items="Object.keys(docInfo)" v-model="selectGloss.docid" label="Document" height=30 outlined dense></v-select>
           </span>
           <span class='mx-1 pa-0'>
-            <v-select :items="gloss_num" label="Gloss" height=30 outlined dense></v-select>
+            <v-select :items="docInfo[selectGloss.docid]" v-model="selectGloss.glossNum" label="Gloss" height=30 outlined dense></v-select>
           </span>
           <v-btn>
             <span>New Doc</span>
@@ -56,24 +57,47 @@ export default {
     components: {
         Leipzig
     },
+    computed: {
+      gloss() {
+        //console.log(this.selectGloss.docid, this.selectGloss.glossNum - 1)
+        var docid = this.selectGloss.docid.length > 0 ? this.selectGloss.docid : 'doc1';
+        var glossNum = this.selectGloss.glossNum > 0 ? this.selectGloss.glossNum - 1 : 0
+        //return this.$store.getters.getGloss('doc1', 0);
+        return this.$store.getters.getGloss(docid, glossNum);
+      },
+      docInfo() {
+        return this.$store.getters.getDocInfo;
+      }
+    },
     data() {
         return {
-            docs: ['doc1', 'doc2'],
-            gloss_num: [1, 2, 3, 4, 5, 'New'],
-            gloss: {
-                original: 
-                    "Die Umgangssprache ist ein Teil des menschlichen Organismus und nicht weniger kompliziert als dieser.",
-                gloss: [
-                  'die umgangssprache ist ein teil des mensch-lich-en organismus und nicht wenig-er komplizeiert als dies-er',
-                  'DET.NOM.F.SG {colloquial language} be.3SG.PRS DET.NOM.M.SG part DET.GEN.M.SG human-ADJ-AGR.GEN.M.SG organism and NEG less-CMPR complicated CMPR DET-AGR.M.SG',
-
-                ],
-                free: [
-                    "‘Colloquial language is a part of the human organism and is not less complicated than it.’"
-                ]
+            selectGloss: {
+              docid: '',
+              glossNum: 0,
             },
+            //docs: ['doc1', 'doc2'],
+            //gloss_num: [1, 2, 3, 4, 5, 'New'],
             hideGloss: false,
         };
+    },
+    watch: {
+      // Change selected glossNum when docid changes
+      "selectGloss.docid": function() {
+        if (this.docInfo[this.selectGloss.docid].length > 0)
+          this.selectGloss.glossNum = this.docInfo[this.selectGloss.docid][0];
+        else
+          this.selectGloss.glossNum = ''
+      }
+    },
+    created: function() {
+      if (Object.keys(this.docInfo)[0]) {
+        this.selectGloss.docid = Object.keys(this.docInfo)[0];
+        if (this.docInfo[this.selectGloss.docid].length > 0)
+          this.selectGloss.glossNum = this.docInfo[this.selectGloss.docid][0];
+      }
+        
+      else
+        this.selectGloss.docid = '';
     },
     filters: {
       removeEmptyGloss: function(gloss) {
