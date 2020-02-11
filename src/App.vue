@@ -1,7 +1,7 @@
 <template>
   <v-app color="grey lighten-4">
     <Navbar />
-    <v-content class="mx-6 mb-4 mt-4">
+    <v-content class="mx-4 mb-2 mt-2">
       <!-- <Leipzig /> -->
       <router-view></router-view>
     </v-content>
