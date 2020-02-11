@@ -9,7 +9,7 @@
                 <div
                     class="gloss__word"
                     v-for="(len, idx2) in tokenizeGlossLength"
-                    :key="idx + idx2"
+                    :key="len + idx2"
                 >
                     <p
                         v-for="(line, i) in tokenizeGloss"
@@ -91,9 +91,6 @@ export default {
             );
             // Find the gloss with least tokens, and return this gloss line
             var minGlossLength = tokenized.map(lst => lst.length);
-            console.log(
-                tokenized[minGlossLength.indexOf(Math.min(...minGlossLength))]
-            );
             return tokenized[
                 minGlossLength.indexOf(Math.min(...minGlossLength))
             ];
