@@ -2,7 +2,7 @@
     <div class="edit">
         <v-container class="ma-0">
           <v-row align="center">
-            <v-col sm="12" :md="hideGloss ? 12 : 7" :lg="hideGloss ? 12 : 7" order-sm="2" order-lg="1">
+            <v-col xs="12" sm="12" :md="hideGloss ? 12 : 7" :lg="hideGloss ? 12 : 7" order-xs="2" order-sm="2" order-lg="1">
                   <v-text-field height=27 class="caption"
                       label="Original Langauge"
                       v-model.lazy="gloss.original"
@@ -15,7 +15,7 @@
                   <v-text-field height=27 class="caption" label="Chinese Translation" v-model="gloss.free[1]" spellcheck="false"></v-text-field>
                   <v-text-field height=27 class="caption" label="Comment" v-model="gloss.free[2]" spellcheck="false"></v-text-field>
             </v-col>
-            <v-col sm="12" md="5" lg="5" order-sm="1" order-lg="2" align-self="start" class="pr-0 mr-0" :style="hideGloss ? 'display:none;' : ''">
+            <v-col xs="12" sm="12" md="5" lg="5" order-xs="1" order-sm="1" order-lg="2" align-self="start" class="pr-0 mr-0" :style="hideGloss ? 'display:none;' : ''">
               <Leipzig v-bind:gloss="gloss | removeEmptyGloss" />
             </v-col>
           </v-row>
