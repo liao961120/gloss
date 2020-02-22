@@ -57,7 +57,7 @@ export default new Vuex.Store({
                             '{Zhang San} hates {Li Si}'
                         ],
                         free: [
-                            "Zhang San hates Lee Si.’"
+                            "‘Zhang San hates Lee Si.’"
                         ]
                     },
                     {
