@@ -53,11 +53,11 @@ export default new Vuex.Store({
                             "張三討厭李四",
                         gloss: [
                             '張三 討厭 李四',
-                            '{Chang San} A {Lee Si}',
-                            '{Chang San} hates {Lee Si}'
+                            '{Zhang San} A {Li Si}',
+                            '{Zhang San} hates {Li Si}'
                         ],
                         free: [
-                            "‘Chang San hates Lee Si.’"
+                            "Zhang San hates Lee Si.’"
                         ]
                     },
                     {
