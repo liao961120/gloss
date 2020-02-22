@@ -9,11 +9,11 @@
                 <div
                     class="gloss__word"
                     v-for="(len, idx2) in tokenizeGlossLength"
-                    :key="len + idx2"
+                    :key="idx2 + Math.random()"
                 >
                     <p
                         v-for="(line, i) in tokenizeGloss"
-                        :key="i"
+                        :key="i + Math.random()"
                         :class="`gloss__line gloss__line--${i+1}`"
                     >
                         <template v-if="line[idx2].length > 1">
@@ -24,7 +24,7 @@
                                         <abbr
                                             class="gloss__abbr"
                                             :title="abbr[sub]"
-                                            :key="sub + j + k"
+                                            :key="sub + Math.random()"
                                         >{{ sub }}</abbr>
                                         <template v-if="k + 1 < tag.split('-').length">-</template>
                                     </template>
@@ -33,7 +33,7 @@
                                     <abbr
                                         class="gloss__abbr"
                                         :title="abbr[tag]"
-                                        :key="tag + j"
+                                        :key="tag + Math.random()"
                                     >{{ tag }}</abbr>
                                 </template>
 
@@ -56,7 +56,7 @@
 
             <p
                 v-for="(line, i) in gloss.free"
-                :key="line"
+                :key="i + Math.random()"
                 :class="`gloss__line--free gloss__line gloss__line--${tokenizeGlossLength[0] + i}`"
             >{{ line }}</p>
         </div>
@@ -76,6 +76,18 @@ export default {
                         .split(".")
                 )
             );
+
+            // Replace shorter lines with "_" character
+            var line_lens = tokenized.map(line => line.length);
+            var max_line_len = Math.max(...line_lens)
+
+            for (var i=0; i<tokenized.length; i++) {
+                if (tokenized[i].length < max_line_len) {
+                    var empty = new Array(max_line_len - tokenized[i].length).fill(['___']);
+                    tokenized[i].push(...empty);
+                }
+                    
+            }
             return tokenized;
         },
         tokenizeGlossLength: function() {
@@ -92,7 +104,7 @@ export default {
             // Find the gloss with least tokens, and return this gloss line
             var minGlossLength = tokenized.map(lst => lst.length);
             return tokenized[
-                minGlossLength.indexOf(Math.min(...minGlossLength))
+                minGlossLength.indexOf(Math.max(...minGlossLength))
             ];
         }
     },
@@ -113,6 +125,7 @@ export default {
             },
             */
             abbr: {
+                ___: "placeholder",
                 1: "first person",
                 2: "second person",
                 3: "third person",
