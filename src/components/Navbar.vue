@@ -2,7 +2,7 @@
   <div>
     <v-app-bar dense app height="35">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title class="grey--text darken-5">Glosser</v-toolbar-title>
+      <v-toolbar-title class="grey--text darken-5">Leipzig.vue</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
